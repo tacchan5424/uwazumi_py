@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUXE STORE - プレミアムファッション</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+      }
+
+      /* ヘッダー */
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        opacity: 0.8;
+      }
+
+      .cart-icon {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .cart-icon:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* メインコンテンツ */
+      main {
+        margin-top: 80px;
+      }
+
+      /* ヒーローセクション */
+      .hero {
+        background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        padding: 4rem 2rem;
+        text-align: center;
+        color: white;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        background: white;
+        color: #ff6b6b;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* セクション */
+      .section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      .section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #333;
+      }
+
+      /* 商品グリッド */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 250px;
+        background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .product-info {
+        padding: 1.5rem;
+      }
+
+      .product-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .product-price {
+        font-size: 1.5rem;
+        color: #ff6b6b;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .product-description {
+        color: #666;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      .product-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .add-to-cart {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+      }
+
+      .add-to-cart:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .details-toggle {
+        background: transparent;
+        border: 2px solid #667eea;
+        color: #667eea;
+        padding: 0.7rem 1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .details-toggle:hover {
+        background: #667eea;
+        color: white;
+      }
+
+      .product-details {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+      }
+
+      .product-details.show {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .detail-item {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .detail-label {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .detail-value {
+        color: #666;
+      }
+
+      /* 特集セクション */
+      .featured {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        margin: 4rem 0;
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      .featured h2 {
+        color: #333;
+        margin-bottom: 2rem;
+      }
+
+      .featured-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .feature-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .feature-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      /* フッター */
+      footer {
+        background: #333;
+        color: white;
+        padding: 3rem 2rem 1rem;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 1rem;
+        color: #ff6b6b;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section ul li a:hover {
+        color: #ff6b6b;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #555;
+        padding-top: 1rem;
+        color: #ccc;
+      }
+
+      /* レスポンシブ */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#" class="logo">LUXE STORE</a>
+        <ul class="nav-links">
+          <li><a href="#home">ホーム</a></li>
+          <li><a href="#products">商品</a></li>
+          <li><a href="#about">会社概要</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+        <div class="cart-icon">🛒 カート (0)</div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <h1>プレミアムファッション</h1>
+        <p>最高品質のアイテムで、あなたのスタイルを格上げ</p>
+        <a href="#products" class="cta-button">ショッピングを始める</a>
+      </section>
+
+      <section class="section" id="products">
+        <h2>人気商品</h2>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-image">プレミアムコート</div>
+            <div class="product-info">
+              <h3 class="product-title">ウールカシミアコート</h3>
+              <p class="product-price">¥89,800</p>
+              <p class="product-description">
+                最高級のウールとカシミアを使用した、上品で温かいコートです。
+              </p>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  onclick="addToCart('ウールカシミアコート')"
+                >
+                  カートに追加
+                </button>
+                <button
+                  class="details-toggle"
+                  onclick="toggleDetails('details1')"
+                >
+                  詳細
+                </button>
+              </div>
+              <div class="product-details" id="details1">
+                <div class="detail-item">
+                  <span class="detail-label">素材:</span>
+                  <span class="detail-value">ウール70% カシミア30%</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">原産国:</span>
+                  <span class="detail-value">イタリア</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">サイズ:</span>
+                  <span class="detail-value">S, M, L, XL</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">お手入れ:</span>
+                  <span class="detail-value">ドライクリーニング推奨</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">シルクブラウス</div>
+            <div class="product-info">
+              <h3 class="product-title">シルクブラウス</h3>
+              <p class="product-price">¥35,600</p>
+              <p class="product-description">
+                上質なシルクを使用した、エレガントなブラウスです。
+              </p>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  onclick="addToCart('シルクブラウス')"
+                >
+                  カートに追加
+                </button>
+                <button
+                  class="details-toggle"
+                  onclick="toggleDetails('details2')"
+                >
+                  詳細
+                </button>
+              </div>
+              <div class="product-details" id="details2">
+                <div class="detail-item">
+                  <span class="detail-label">素材:</span>
+                  <span class="detail-value">シルク100%</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">原産国:</span>
+                  <span class="detail-value">フランス</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">カラー:</span>
+                  <span class="detail-value">ホワイト, ブラック, ベージュ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">レザーバッグ</div>
+            <div class="product-info">
+              <h3 class="product-title">本革ハンドバッグ</h3>
+              <p class="product-price">¥128,000</p>
+              <p class="product-description">
+                職人が手作りで仕上げた、最高級の本革ハンドバッグです。
+              </p>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  onclick="addToCart('本革ハンドバッグ')"
+                >
+                  カートに追加
+                </button>
+                <button
+                  class="details-toggle"
+                  onclick="toggleDetails('details3')"
+                >
+                  詳細
+                </button>
+              </div>
+              <div class="product-details" id="details3">
+                <div class="detail-item">
+                  <span class="detail-label">素材:</span>
+                  <span class="detail-value">牛革（フルグレイン）</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">サイズ:</span>
+                  <span class="detail-value">W30×H25×D15cm</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">重量:</span>
+                  <span class="detail-value">約800g</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured">
+        <h2>なぜLUXE STOREを選ぶのか</h2>
+        <div class="featured-grid">
+          <div class="feature-item">
+            <div class="feature-icon">🏆</div>
+            <h3>最高品質</h3>
+            <p>
+              厳選された素材と熟練の職人技で作られた商品のみを取り扱います。
+            </p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🚚</div>
+            <h3>迅速配送</h3>
+            <p>全国送料無料で、最短翌日お届け。お急ぎの場合も安心です。</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💎</div>
+            <h3>プレミアム体験</h3>
+            <p>
+              お客様一人ひとりに合わせた、特別なショッピング体験をお届けします。
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ショッピング</h3>
+          <ul>
+            <li><a href="#">新着商品</a></li>
+            <li><a href="#">セール</a></li>
+            <li><a href="#">ブランド一覧</a></li>
+            <li><a href="#">ギフト</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>カスタマーサービス</h3>
+          <ul>
+            <li><a href="#">お問い合わせ</a></li>
+            <li><a href="#">配送について</a></li>
+            <li><a href="#">返品・交換</a></li>
+            <li><a href="#">よくある質問</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>会社情報</h3>
+          <ul>
+            <li><a href="#">会社概要</a></li>
+            <li><a href="#">採用情報</a></li>
+            <li><a href="#">プライバシーポリシー</a></li>
+            <li><a href="#">利用規約</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LUXE STORE. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      let cartCount = 0;
+
+      function addToCart(productName) {
+        cartCount++;
+        const cartIcon = document.querySelector(".cart-icon");
+        cartIcon.textContent = `🛒 カート (${cartCount})`;
+
+        // アニメーション効果
+        cartIcon.style.transform = "scale(1.2)";
+        setTimeout(() => {
+          cartIcon.style.transform = "scale(1)";
+        }, 200);
+
+        // 成功メッセージ
+        showMessage(`${productName}をカートに追加しました！`);
+      }
+
+      function toggleDetails(detailsId) {
+        const details = document.getElementById(detailsId);
+        const button = event.target;
+
+        if (details.classList.contains("show")) {
+          details.classList.remove("show");
+          button.textContent = "詳細";
+        } else {
+          details.classList.add("show");
+          button.textContent = "閉じる";
+        }
+      }
+
+      function showMessage(message) {
+        // 簡単な通知メッセージを表示
+        const messageDiv = document.createElement("div");
+        messageDiv.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+        messageDiv.textContent = message;
+
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+          messageDiv.style.animation = "slideOut 0.3s ease";
+          setTimeout(() => {
+            document.body.removeChild(messageDiv);
+          }, 300);
+        }, 2000);
+      }
+
+      // スムーススクロール
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // スクロール時のヘッダー効果
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 100) {
+          header.style.background = "rgba(102, 126, 234, 0.95)";
+          header.style.backdropFilter = "blur(10px)";
+        } else {
+          header.style.background =
+            "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+          header.style.backdropFilter = "none";
+        }
+      });
+
+      // アニメーション用のCSSを追加
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
