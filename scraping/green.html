@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>プレミアム Tシャツ - 商品詳細</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fa;
+      }
+
+      header {
+        background: #fff;
+        padding: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #555;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #e74c3c;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .product-detail {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        padding: 3rem;
+      }
+
+      .product-images {
+        position: relative;
+      }
+
+      .main-image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .main-image:hover {
+        transform: scale(1.02);
+      }
+
+      .thumbnail-images {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      .thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s;
+      }
+
+      .thumbnail:hover,
+      .thumbnail.active {
+        border-color: #e74c3c;
+      }
+
+      .product-info h1 {
+        font-size: 2.2rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-brand {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stars {
+        color: #ffc107;
+        font-size: 1.2rem;
+      }
+
+      .rating-count {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .product-price {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #e74c3c;
+        margin-bottom: 0.5rem;
+      }
+
+      .original-price {
+        font-size: 1.2rem;
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 0.5rem;
+      }
+
+      .discount-badge {
+        background: #e74c3c;
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-left: 1rem;
+      }
+
+      .product-description {
+        color: #666;
+        line-height: 1.8;
+        margin: 2rem 0;
+      }
+
+      .color-options {
+        margin: 2rem 0;
+      }
+
+      .option-label {
+        font-weight: bold;
+        margin-bottom: 0.8rem;
+        display: block;
+      }
+
+      .color-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .color-btn {
+        width: 50px;
+        height: 50px;
+        border: 3px solid #ddd;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      .color-btn:hover,
+      .color-btn.active {
+        border-color: #e74c3c;
+        transform: scale(1.1);
+      }
+
+      .color-btn.red {
+        background: linear-gradient(45deg, #e74c3c, #c0392b);
+      }
+
+      .color-btn.blue {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+      }
+
+      .color-btn.green {
+        background: linear-gradient(45deg, #27ae60, #229954);
+      }
+
+      .color-btn.black {
+        background: linear-gradient(45deg, #2c3e50, #1a252f);
+      }
+
+      .color-btn.white {
+        background: linear-gradient(45deg, #ecf0f1, #bdc3c7);
+      }
+
+      .size-options {
+        margin: 2rem 0;
+      }
+
+      .size-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .size-btn {
+        padding: 0.8rem 1.2rem;
+        border: 2px solid #ddd;
+        background: white;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s;
+        font-weight: bold;
+      }
+
+      .size-btn:hover,
+      .size-btn.active {
+        border-color: #e74c3c;
+        background: #e74c3c;
+        color: white;
+      }
+
+      .quantity-selector {
+        margin: 2rem 0;
+      }
+
+      .quantity-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .qty-btn {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ddd;
+        background: white;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .qty-btn:hover {
+        border-color: #e74c3c;
+        background: #e74c3c;
+        color: white;
+      }
+
+      .qty-input {
+        width: 80px;
+        height: 40px;
+        text-align: center;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 1.1rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(45deg, #e74c3c, #c0392b);
+        color: white;
+        flex: 1;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border: 2px solid #e74c3c;
+        color: #e74c3c;
+        padding: 0.9rem 2rem;
+      }
+
+      .btn-secondary:hover {
+        background: #e74c3c;
+        color: white;
+      }
+
+      .product-features {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+
+      .features-list {
+        list-style: none;
+      }
+
+      .features-list li {
+        padding: 0.5rem 0;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .features-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #27ae60;
+        font-weight: bold;
+      }
+
+      @media (max-width: 768px) {
+        .product-detail {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          padding: 2rem;
+        }
+
+        .header-content {
+          padding: 0 15px;
+        }
+
+        .nav-links {
+          gap: 1rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .color-buttons {
+          justify-content: center;
+        }
+
+        .size-buttons {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="product-detail">
+        <div class="product-images">
+          <img
+            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop"
+            alt="プレミアム Tシャツ"
+            class="main-image"
+            id="mainImage"
+          />
+          <div class="thumbnail-images">
+            <img
+              src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=80&h=80&fit=crop"
+              alt="前面"
+              class="thumbnail active"
+              onclick="changeImage(this)"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=80&h=80&fit=crop"
+              alt="背面"
+              class="thumbnail"
+              onclick="changeImage(this)"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1525845859779-54d477ff291f?w=80&h=80&fit=crop"
+              alt="サイド"
+              class="thumbnail"
+              onclick="changeImage(this)"
+            />
+          </div>
+        </div>
+
+        <div class="product-info">
+          <h1>オーガニックコットン プレミアム Tシャツ 緑</h1>
+
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(127件のレビュー)</span>
+          </div>
+
+          <div class="product-price">¥5,990</div>
+
+          <div class="product-description">
+            上質なオーガニックコットン100%を使用した、着心地抜群のプレミアム
+            Tシャツです。
+            シンプルながらも洗練されたデザインで、カジュアルからビジネスカジュアルまで幅広いシーンでご着用いただけます。
+            環境に配慮した素材を使用し、持続可能なファッションを提案します。
+          </div>
+
+          <div class="color-options">
+            <label class="option-label">カラー: グリーン</label>
+            <div class="color-buttons">
+              <a href="red.html" class="color-btn red" title="レッド"></a>
+              <a href="blue.html" class="color-btn blue" title="ブルー"></a>
+              <a
+                href="green.html"
+                class="color-btn green active"
+                title="グリーン"
+              ></a>
+              <a href="black.html" class="color-btn black" title="ブラック"></a>
+              <a href="white.html" class="color-btn white" title="ホワイト"></a>
+            </div>
+          </div>
+
+          <div class="size-options">
+            <label class="option-label">サイズ</label>
+            <div class="size-buttons">
+              <button class="size-btn">XS</button>
+              <button class="size-btn">S</button>
+              <button class="size-btn active">M</button>
+              <button class="size-btn">L</button>
+              <button class="size-btn">XL</button>
+              <button class="size-btn">XXL</button>
+            </div>
+          </div>
+
+          <div class="quantity-selector">
+            <label class="option-label">数量</label>
+            <div class="quantity-input">
+              <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+              <input
+                type="number"
+                value="1"
+                min="1"
+                max="10"
+                class="qty-input"
+                id="quantity"
+              />
+              <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-primary">カートに追加</button>
+            <button class="btn btn-secondary">♡ お気に入り</button>
+          </div>
+
+          <div class="product-features">
+            <h3>商品の特徴</h3>
+            <ul class="features-list">
+              <li>オーガニックコットン100%使用</li>
+              <li>防縮加工済み</li>
+              <li>吸汗速乾機能付き</li>
+              <li>UVカット効果</li>
+              <li>洗濯機洗い可能</li>
+              <li>30日間返品保証</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function changeImage(thumbnail) {
+        // サムネイルの active クラスを切り替え
+        document.querySelectorAll(".thumbnail").forEach((thumb) => {
+          thumb.classList.remove("active");
+        });
+        thumbnail.classList.add("active");
+
+        // メイン画像を変更
+        document.getElementById("mainImage").src = thumbnail.src.replace(
+          "w=80&h=80",
+          "w=500&h=500"
+        );
+      }
+
+      function changeQuantity(change) {
+        const quantityInput = document.getElementById("quantity");
+        let currentValue = parseInt(quantityInput.value);
+        let newValue = currentValue + change;
+
+        if (newValue >= 1 && newValue <= 10) {
+          quantityInput.value = newValue;
+        }
+      }
+
+      // サイズボタンのクリック処理
+      document.querySelectorAll(".size-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          document
+            .querySelectorAll(".size-btn")
+            .forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>
